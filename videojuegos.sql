@@ -72,6 +72,7 @@ VALUES (nextval('seq_desarrollador'), 'Ubisoft', '1986-03-28', 'Christian Guille
 INSERT INTO DESARROLLADOR (ID, NOMBRE, FUNDACION, FUNDADOR, EMPLEADOS, SEDE, SITIOWEB, LOGO)
 VALUES (nextval('seq_desarrollador'), 'Naughty Dog', '1984-09-30', 'Andy Gavin, Jason Rubin', 300, 'Santa Mónica, California, EE. UU.', 'https://www.naughtydog.com/', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Naughty_Dog_logo.svg/1200px-Naughty_Dog_logo.svg.png');
 
+
 -- JUEGOS
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
 VALUES (nextval('seq_juegos'), 'Red dead redemption 2', 'Acción-Aventura', '2018-10-26', 'https://i.blogs.es/juegos/13424/red_dead_3__nombre_temporal_/fotos/maestras/red_dead_3__nombre_temporal_-4030936.jpg', 65, 154, 23000000, 1, 9.2);
@@ -85,5 +86,7 @@ VALUES (nextval('seq_juegos'), 'Assassins Creed Valhalla', 'Acción-Aventura', '
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
 VALUES (nextval('seq_juegos'), 'The Last of Us Part II', 'Acción-Aventura', '2020-06-19', 'https://images-na.ssl-images-amazon.com/images/I/71u3i5KyGbL._SL1200_.jpg', 30, 78.5, 4000000, 4, 9.4);
 
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'Grand Theft Auto V', 'Acción-Aventura', '2013-09-17', 'https://image.api.playstation.com/vulcan/ap/rnd/202203/0911/VIB0SeEj9vT6DTv7P4thJLZi.jpg', 30, 110, 190000000, 1, 9.6);
 
 COMMIT;
