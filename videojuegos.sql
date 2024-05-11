@@ -56,10 +56,32 @@ CREATE TABLE VIDEOJUEGO
 CREATE SEQUENCE seq_juegos 			MINVALUE 1 MAXVALUE 10000 START WITH 1 INCREMENT BY 1;
 CREATE SEQUENCE seq_desarrollador	MINVALUE 1 MAXVALUE 5000 START WITH 1 INCREMENT BY 1;
 
+
+-- DESARROLLADORES
 INSERT INTO DESARROLLADOR (ID, NOMBRE, FUNDACION, FUNDADOR, EMPLEADOS, SEDE, SITIOWEB)
 VALUES (nextval('seq_desarrollador'), 'Rockstar Games', '1998-12-05', 'Sam Houser', 2000, '40°43′44″ N, 73°59′24″ W', 'www.rockstar.com');
 
+INSERT INTO DESARROLLADOR (ID, NOMBRE, FUNDACION, FUNDADOR, EMPLEADOS, SEDE, SITIOWEB)
+VALUES (nextval('seq_desarrollador'), 'Nintendo', '1889-09-23', 'Fusajiro Yamauchi', 5800, 'Kyoto, Japón', 'https://www.nintendo.com/');
+
+INSERT INTO DESARROLLADOR (ID, NOMBRE, FUNDACION, FUNDADOR, EMPLEADOS, SEDE, SITIOWEB)
+VALUES (nextval('seq_desarrollador'), 'Ubisoft', '1986-03-28', 'Christian Guillemot', 18000, 'Montreuil, Francia', 'https://www.ubisoft.com/');
+
+INSERT INTO DESARROLLADOR (ID, NOMBRE, FUNDACION, FUNDADOR, EMPLEADOS, SEDE, SITIOWEB)
+VALUES (nextval('seq_desarrollador'), 'Naughty Dog', '1984-09-30', 'Andy Gavin, Jason Rubin', 300, 'Santa Mónica, California, EE. UU.', 'https://www.naughtydog.com/');
+
+-- JUEGOS
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
 VALUES (nextval('seq_juegos'), 'Red dead redemption 2', 'Acción-Aventura', '2018-10-26', 'https://i.blogs.es/juegos/13424/red_dead_3__nombre_temporal_/fotos/maestras/red_dead_3__nombre_temporal_-4030936.jpg', 65, 154, 23000000, 1, 9.2);
+
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'The Legend of Zelda: Breath of the Wild', 'Acción-Aventura', '2017-03-03', 'https://www.nintendo.com/content/dam/noa/es_MX/games/switch/t/the-legend-of-zelda-breath-of-the-wild-switch/legend-of-zelda-breath-of-the-wild-switch-hero.jpg', 50, 13.4, 23000000, 2, 9.5);
+
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'Assassins Creed Valhalla', 'Acción-Aventura', '2020-11-10', 'https://store.ubi.com/dw/image/v2/ABBS_PRD/on/demandware.static/-/Sites-masterCatalog/default/dw1edddc9e/images/large/5ea3d3aaf42e123ecb3e0654.jpg?sw=341&sh=470&sm=fit', 60, 50.2, 13000000, 3, 8.7);
+
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'The Last of Us Part II', 'Acción-Aventura', '2020-06-19', 'https://images-na.ssl-images-amazon.com/images/I/71u3i5KyGbL._SL1200_.jpg', 30, 78.5, 4000000, 4, 9.4);
+
 
 COMMIT;
