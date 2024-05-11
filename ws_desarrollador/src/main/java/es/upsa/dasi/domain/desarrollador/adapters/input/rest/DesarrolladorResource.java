@@ -34,7 +34,7 @@ public class DesarrolladorResource {
                 .build();
     }
 
-    @Path("{id}")
+    @Path("/id/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findDesarrolladorById(@PathParam("id") int id) throws AppException{
@@ -48,7 +48,7 @@ public class DesarrolladorResource {
                 );
     }
 
-    @Path("{nombre}")
+    @Path("/nombre/{nombre}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findDesarrolladorByNombre(@PathParam("nombre") String nombre) throws AppException{
