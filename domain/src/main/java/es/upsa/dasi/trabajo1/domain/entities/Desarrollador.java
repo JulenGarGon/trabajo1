@@ -13,7 +13,8 @@ public record Desarrollador (int id,
                              String fundador,
                              int empleados,
                              String sede,
-                             String sitioWeb
+                             String sitioWeb,
+                             String logo
                              )
 {
 }

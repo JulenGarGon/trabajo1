@@ -22,7 +22,7 @@ public class DatabaseDaoImpl implements DatabaseDao {
     public List<Desarrollador> findAllDesarrolladores() throws AppException {
         List<Desarrollador> desarrolladores = new ArrayList<>();
         final String SQL =  """
-                            SELECT d.id, d.nombre, d.fundacion, d.fundador, d.sitioweb, d.empleados, d.sede, d.sitioweb
+                            SELECT d.id, d.nombre, d.fundacion, d.fundador, d.sitioweb, d.empleados, d.sede, d.sitioweb, d.logo
                                 FROM desarrollador d
                             """;
         try (   Connection connection = dataSource.getConnection();
@@ -40,6 +40,7 @@ public class DatabaseDaoImpl implements DatabaseDao {
                                                 .withEmpleados(rs.getInt(6))
                                                 .withSede(rs.getString(7))
                                                 .withSitioWeb(rs.getString(8))
+                                                .withLogo(rs.getString(9))
                                                 .build()
                                     );
             }
@@ -53,7 +54,7 @@ public class DatabaseDaoImpl implements DatabaseDao {
     @Override
     public Optional<Desarrollador> findDesarrolladorById(int id) throws AppException {
         final String SQL =  """
-                            SELECT d.id, d.nombre, d.fundacion, d.fundador, d.sitioweb, d.empleados, d.sede, d.sitioweb
+                            SELECT d.id, d.nombre, d.fundacion, d.fundador, d.sitioweb, d.empleados, d.sede, d.sitioweb, d.logo
                                 FROM desarrollador d
                             WHERE d.id = ?
                             """;
@@ -74,6 +75,7 @@ public class DatabaseDaoImpl implements DatabaseDao {
                                                 .withEmpleados(rs.getInt(6))
                                                 .withSede(rs.getString(7))
                                                 .withSitioWeb(rs.getString(8))
+                                                .withLogo(rs.getString(9))
                                                 .build()
                                     );
             }
@@ -86,7 +88,7 @@ public class DatabaseDaoImpl implements DatabaseDao {
     @Override
     public Optional<Desarrollador> findDesarrolladorByNombre(String nombre) throws AppException {
         final String SQL =  """
-                            SELECT d.id, d.nombre, d.fundacion, d.fundador, d.sitioweb, d.empleados, d.sede, d.sitioweb
+                            SELECT d.id, d.nombre, d.fundacion, d.fundador, d.sitioweb, d.empleados, d.sede, d.sitioweb, d.logo
                                 FROM desarrollador d
                             WHERE d.nombre = ?
                             """;
@@ -107,6 +109,7 @@ public class DatabaseDaoImpl implements DatabaseDao {
                                                 .withEmpleados(rs.getInt(6))
                                                 .withSede(rs.getString(7))
                                                 .withSitioWeb(rs.getString(8))
+                                                .withLogo(rs.getString(9))
                                                 .build()
                                 );
             }
