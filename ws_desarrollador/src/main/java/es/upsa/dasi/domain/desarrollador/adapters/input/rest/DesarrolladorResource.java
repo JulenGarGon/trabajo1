@@ -48,6 +48,7 @@ public class DesarrolladorResource {
                 );
     }
 
+    //Así no hay posibildad de que confunda id con nombre
     @Path("/nombre/{nombre}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
