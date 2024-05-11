@@ -8,6 +8,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class RepositoryImpl implements Repository {
@@ -18,5 +19,10 @@ public class RepositoryImpl implements Repository {
     public List<Desarrollador> findAllDesarrolladores() throws AppException {
 
         return dao.findAllDesarrolladores();
+    }
+
+    @Override
+    public Optional<Desarrollador> findDesarrolladorById(int id) throws AppException {
+        return dao.findDesarrolladorById(id);
     }
 }

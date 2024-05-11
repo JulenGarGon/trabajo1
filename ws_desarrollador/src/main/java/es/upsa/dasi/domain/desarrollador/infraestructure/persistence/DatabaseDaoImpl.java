@@ -8,12 +8,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class DatabaseDaoImpl implements DatabaseDao {
@@ -50,6 +48,40 @@ public class DatabaseDaoImpl implements DatabaseDao {
         }
 
         return desarrolladores;
+    }
+
+    @Override
+    public Optional<Desarrollador> findDesarrolladorById(int id) throws AppException {
+        final String SQL =  """
+                            SELECT d.id, d.nombre, d.fundacion, d.fundador, d.sitioweb, d.empleados, d.sede, d.sitioweb
+                                FROM desarrollador d
+                            WHERE d.id = ?
+                            """;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+            )
+        {
+
+            preparedStatement.setInt(1, id);
+            try (ResultSet rs = preparedStatement.executeQuery()){
+                if (!rs.next()) return Optional.empty();
+                return Optional.of(Desarrollador.builder()
+                                                .withId(rs.getInt(1))
+                                                .withNombre(rs.getString(2))
+                                                .withFundacion(rs.getDate(3))
+                                                .withFundador(rs.getString(4))
+                                                .withSitioWeb(rs.getString(5))
+                                                .withEmpleados(rs.getInt(6))
+                                                .withSede(rs.getString(7))
+                                                .withSitioWeb(rs.getString(8))
+                                                .build()
+                                    );
+            }
+
+        } catch (SQLException sqlException){
+            throw managerSqlExceptions(sqlException);
+        }
     }
 
     private AppException managerSqlExceptions(SQLException sqlException) {

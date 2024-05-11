@@ -5,6 +5,7 @@ import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -23,5 +24,14 @@ public class DesarrolladorResource {
         return Response.ok()
                 .entity(findAllDesarrolladoresUseCase.execute())
                 .build();
+    }
+
+    @Path("{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findDesarrolladorById(@PathParam("id") int id) throws AppException{
+        return Response.ok()
+
+                        .build();
     }
 }
