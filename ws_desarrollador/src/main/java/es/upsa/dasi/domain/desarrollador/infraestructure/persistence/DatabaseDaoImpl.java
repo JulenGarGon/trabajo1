@@ -62,7 +62,6 @@ public class DatabaseDaoImpl implements DatabaseDao {
              PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             )
         {
-
             preparedStatement.setInt(1, id);
             try (ResultSet rs = preparedStatement.executeQuery()){
                 if (!rs.next()) return Optional.empty();
