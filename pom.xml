@@ -11,6 +11,7 @@
 
     <modules>
         <module>domain</module>
+        <module>ws_desarrollador</module>
     </modules>
 
     <properties>
