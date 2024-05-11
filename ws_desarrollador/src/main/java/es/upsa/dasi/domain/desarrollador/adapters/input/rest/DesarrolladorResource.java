@@ -1,6 +1,8 @@
 package es.upsa.dasi.domain.desarrollador.adapters.input.rest;
 
 import es.upsa.dasi.domain.desarrollador.application.FindAllDesarrolladoresUseCase;
+import es.upsa.dasi.domain.desarrollador.application.FindDesarrolladorByIdUseCase;
+import es.upsa.dasi.domain.desarrollador.application.FindDesarrolladorByNombreUseCase;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
@@ -16,6 +18,12 @@ public class DesarrolladorResource {
     @Inject
     FindAllDesarrolladoresUseCase findAllDesarrolladoresUseCase;
 
+    @Inject
+    FindDesarrolladorByIdUseCase findDesarrolladorByIdUseCase;
+
+    @Inject
+    FindDesarrolladorByNombreUseCase findDesarrolladorByNombreUseCase;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAllDesarrolladores() throws AppException {
@@ -30,8 +38,27 @@ public class DesarrolladorResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findDesarrolladorById(@PathParam("id") int id) throws AppException{
-        return Response.ok()
 
-                        .build();
+        return findDesarrolladorByIdUseCase.execute(id)
+                .map( desarrollador ->  Response.ok()
+                                                .entity(desarrollador)
+                                                .build()
+                     )
+                .orElse( Response.status(Response.Status.NOT_FOUND).build()
+                );
+    }
+
+    @Path("{nombre}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findDesarrolladorByNombre(@PathParam("nombre") String nombre) throws AppException{
+
+        return findDesarrolladorByNombreUseCase.execute(nombre)
+                .map( desarrollador -> Response.ok()
+                                                .entity(desarrollador)
+                                                .build()
+                    )
+                .orElse( Response.status(Response.Status.NOT_FOUND).build()
+                );
     }
 }

@@ -25,4 +25,9 @@ public class RepositoryImpl implements Repository {
     public Optional<Desarrollador> findDesarrolladorById(int id) throws AppException {
         return dao.findDesarrolladorById(id);
     }
+
+    @Override
+    public Optional<Desarrollador> findDesarrolladorByNombre(String nombre) throws AppException {
+        return dao.findDesarrolladorByNombre(nombre);
+    }
 }

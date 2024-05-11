@@ -10,4 +10,6 @@ public interface Repository {
     List<Desarrollador> findAllDesarrolladores() throws AppException;
 
     Optional<Desarrollador> findDesarrolladorById(int id) throws AppException;
+
+    Optional<Desarrollador> findDesarrolladorByNombre(String nombre) throws AppException;
 }

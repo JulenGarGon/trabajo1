@@ -83,6 +83,39 @@ public class DatabaseDaoImpl implements DatabaseDao {
         }
     }
 
+    @Override
+    public Optional<Desarrollador> findDesarrolladorByNombre(String nombre) throws AppException {
+        final String SQL =  """
+                            SELECT d.id, d.nombre, d.fundacion, d.fundador, d.sitioweb, d.empleados, d.sede, d.sitioweb
+                                FROM desarrollador d
+                            WHERE d.nombre = ?
+                            """;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+        )
+        {
+            preparedStatement.setString(1, nombre);
+            try (ResultSet rs = preparedStatement.executeQuery()){
+                if (!rs.next()) return Optional.empty();
+                return Optional.of(Desarrollador.builder()
+                                                .withId(rs.getInt(1))
+                                                .withNombre(rs.getString(2))
+                                                .withFundacion(rs.getDate(3))
+                                                .withFundador(rs.getString(4))
+                                                .withSitioWeb(rs.getString(5))
+                                                .withEmpleados(rs.getInt(6))
+                                                .withSede(rs.getString(7))
+                                                .withSitioWeb(rs.getString(8))
+                                                .build()
+                                );
+            }
+
+        } catch (SQLException sqlException){
+            throw managerSqlExceptions(sqlException);
+        }
+    }
+
     private AppException managerSqlExceptions(SQLException sqlException) {
         return new NonControledSQLException(sqlException);
     }
