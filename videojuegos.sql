@@ -72,6 +72,9 @@ VALUES (nextval('seq_desarrollador'), 'Ubisoft', '1986-03-28', 'Christian Guille
 INSERT INTO DESARROLLADOR (ID, NOMBRE, FUNDACION, FUNDADOR, EMPLEADOS, SEDE, SITIOWEB, LOGO)
 VALUES (nextval('seq_desarrollador'), 'Naughty Dog', '1984-09-30', 'Andy Gavin, Jason Rubin', 300, 'Santa Mónica, California, EE. UU.', 'https://www.naughtydog.com/', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Naughty_Dog_logo.svg/1200px-Naughty_Dog_logo.svg.png');
 
+INSERT INTO DESARROLLADOR (ID, NOMBRE, FUNDACION, FUNDADOR, EMPLEADOS, SEDE, SITIOWEB, LOGO)
+VALUES (nextval('seq_desarrollador'), 'From Software', '1986-11-01', 'Naotoshi Zin', 288, 'Tokio, Japón', 'https://www.fromsoftware.jp/ww/', 'https://static.wikia.nocookie.net/sekiro/images/a/ac/FromSoftware.jpg/revision/latest?cb=20190412211109&path-prefix=es');
+
 
 -- JUEGOS
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
