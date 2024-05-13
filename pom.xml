@@ -10,7 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>domain</module>
+        <module>gateway</module>
         <module>ws_desarrollador</module>
     </modules>
 

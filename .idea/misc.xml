@@ -3,12 +3,14 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="Quarkus" url="file://$PROJECT_DIR$/ws_desarrollador" />
+    <file type="Quarkus" url="file://$PROJECT_DIR$/ws_videojuego" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/ws_desarrollador/pom.xml" />
+        <option value="$PROJECT_DIR$/ws_videojuego/pom.xml" />
       </list>
     </option>
   </component>
