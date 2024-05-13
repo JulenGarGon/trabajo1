@@ -2,6 +2,7 @@ package es.upsa.dasi.domain.videojuego.adapters.input.rest;
 
 import es.upsa.dasi.domain.videojuego.application.DeleteVideojuegoById;
 import es.upsa.dasi.domain.videojuego.application.FindAllVideojuegosUseCase;
+import es.upsa.dasi.trabajo1.domain.entities.Videojuego;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -30,5 +31,13 @@ public class VideojuegoResource {
     public Response deleteVideojuegoById(@PathParam("id")int id) throws AppException{
         deleteVideojuegoById.execute(id);
         return Response.noContent().build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addVideojuego(Videojuego videojuego) throws AppException{
+
+        return Response.accepted().build();
     }
 }

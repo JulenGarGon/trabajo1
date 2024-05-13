@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="Quarkus" url="file://$PROJECT_DIR$/gateway" />
     <file type="Quarkus" url="file://$PROJECT_DIR$/ws_desarrollador" />
     <file type="Quarkus" url="file://$PROJECT_DIR$/ws_videojuego" />
   </component>
@@ -11,6 +12,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/ws_desarrollador/pom.xml" />
         <option value="$PROJECT_DIR$/ws_videojuego/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/pom.xml" />
       </list>
     </option>
   </component>

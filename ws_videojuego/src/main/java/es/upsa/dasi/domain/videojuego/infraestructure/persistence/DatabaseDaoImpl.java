@@ -3,6 +3,7 @@ package es.upsa.dasi.domain.videojuego.infraestructure.persistence;
 import es.upsa.dasi.domain.videojuego.adapters.output.daos.DatabaseDao;
 import es.upsa.dasi.trabajo1.domain.entities.Videojuego;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
+import es.upsa.dasi.trabajo1.domain.exceptions.ConstraintViolationException;
 import es.upsa.dasi.trabajo1.domain.exceptions.EntityNotFoundException;
 import es.upsa.dasi.trabajo1.domain.exceptions.NonControledSQLException;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -112,6 +113,21 @@ public class DatabaseDaoImpl implements DatabaseDao {
     }
 
     private AppException managerSqlExceptions(SQLException sqlException) {
+
+        String message = sqlException.getMessage();
+
+        if (message.contains("NN_VIDEOJUEGO.NOMBRE")) return new ConstraintViolationException("El videojuego debe tener un nombre.");
+        else if (message.contains("NN_VIDEOJUEGO.GENERO")) return new ConstraintViolationException("El videojuego debe tener un genero.");
+        else if (message.contains("NN_VIDEOJUEGO.ESTRENO")) return new ConstraintViolationException("El videojuego debe tener una fecha de estreno.");
+        else if (message.contains("NN_VIDEOJUEGO.PORTADA")) return new ConstraintViolationException("El videojuego debe tener una foto de portada.");
+        else if (message.contains("NN_VIDEOJUEGO.DURACION")) return new ConstraintViolationException("El videojuego debe tener alguna duración.");
+        else if (message.contains("NN_VIDEOJUEGO.TAMANIO")) return new ConstraintViolationException("El videojuego debe tener un tamaño.");
+        else if (message.contains("NN_VIDEOJUEGO.VENTAS")) return new ConstraintViolationException("El videojuego debe tener un número de ventas.");
+        else if (message.contains("NN_VIDEOJUEGO.DESARROLLADOR")) return new ConstraintViolationException("El videojuego debe tener un desarrollador.");
+        else if (message.contains("NN_VIDEOJUEGO.NOTA")) return new ConstraintViolationException("El videojuego debe tener una nota.");
+        else if (message.contains("CH_VIDEOJUEGO.NOTA")) return new ConstraintViolationException("El videojuego debe tener una nota comprendida entre 0 y 10.");
+
+
         return new NonControledSQLException(sqlException);
     }
 }
