@@ -1,5 +1,6 @@
 package es.upsa.dasi.domain.videojuego.adapters.input.rest;
 
+import es.upsa.dasi.domain.videojuego.application.DeleteVideojuegoById;
 import es.upsa.dasi.domain.videojuego.application.FindAllVideojuegosUseCase;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 import jakarta.inject.Inject;
@@ -13,6 +14,9 @@ public class VideojuegoResource {
     @Inject
     FindAllVideojuegosUseCase findAllVideojuegosUseCase;
 
+    @Inject
+    DeleteVideojuegoById deleteVideojuegoById;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAllVideojuegos() throws AppException{
@@ -23,8 +27,8 @@ public class VideojuegoResource {
 
     @Path("{id}")
     @DELETE
-    public Response deleteVideojuegoById(@PathParam("id")int id){
-        //Llamada al execute(id)
+    public Response deleteVideojuegoById(@PathParam("id")int id) throws AppException{
+        deleteVideojuegoById.execute(id);
         return Response.noContent().build();
     }
 }

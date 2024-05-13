@@ -17,7 +17,7 @@ public class FindVideojuegosByIdDesarrolladorImpl implements FindVideojuegosById
     Repository repository;
 
     @Override
-    public List<Videojuego> executeDes(int id) throws AppException {
+    public List<Videojuego> execute(int id) throws AppException {
         return repository.findVideojuegosByIdDesarrollador(id);
     }
 }

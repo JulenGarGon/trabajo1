@@ -23,7 +23,7 @@ public class VideojuegoDesarrolladorResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response findVideojuegosByIdDesarrollador(@PathParam("idDesarrollador")int id) throws AppException {
         return Response.ok()
-                .entity(findVideojuegosByIdDesarrollador.executeDes(id))
+                .entity(findVideojuegosByIdDesarrollador.execute(id))
                 .build();
     }
 }

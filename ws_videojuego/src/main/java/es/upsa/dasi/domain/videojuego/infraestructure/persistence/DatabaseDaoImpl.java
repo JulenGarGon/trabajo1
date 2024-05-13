@@ -3,6 +3,7 @@ package es.upsa.dasi.domain.videojuego.infraestructure.persistence;
 import es.upsa.dasi.domain.videojuego.adapters.output.daos.DatabaseDao;
 import es.upsa.dasi.trabajo1.domain.entities.Videojuego;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
+import es.upsa.dasi.trabajo1.domain.exceptions.EntityNotFoundException;
 import es.upsa.dasi.trabajo1.domain.exceptions.NonControledSQLException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -89,6 +90,25 @@ public class DatabaseDaoImpl implements DatabaseDao {
             throw  managerSqlExceptions(sqlException);
         }
 
+    }
+
+    @Override
+    public void deleteVideojuegoById(int id) throws AppException {
+        final String SQL =  """
+                            DELETE
+                                FROM videojuego
+                            WHERE id = ?
+                            """;
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL))
+        {
+            preparedStatement.setInt(1, id);
+            int count = preparedStatement.executeUpdate();
+            if (count == 0) throw new EntityNotFoundException("No existe el videojuego con identificador " +id);
+        } catch (SQLException sqlException){
+            throw managerSqlExceptions(sqlException);
+        }
     }
 
     private AppException managerSqlExceptions(SQLException sqlException) {
