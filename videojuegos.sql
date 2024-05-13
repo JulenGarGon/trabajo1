@@ -92,4 +92,10 @@ VALUES (nextval('seq_juegos'), 'The Last of Us Part II', 'Acción-Aventura', '20
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
 VALUES (nextval('seq_juegos'), 'Grand Theft Auto V', 'Acción-Aventura', '2013-09-17', 'https://image.api.playstation.com/vulcan/ap/rnd/202203/0911/VIB0SeEj9vT6DTv7P4thJLZi.jpg', 30, 110, 190000000, 1, 9.6);
 
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'Rayman Legends', 'Plataformas', '2013-08-29', 'https://cdn1.epicgames.com/offer/fc8d1547232045f6a23257cfd04ef3e8/RAYL_StorePortrait_1200x1600_1200x1600-fb12d95d31bf845aa33409748940b904', 15, 2.9, 28000000, 3, 8.8);
+
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'Red dead revolver', 'Acción-Aventura', '2005-05-26', 'https://upload.wikimedia.org/wikipedia/en/c/c1/Red_Dead_Revolver_Coverart.jpg', 7, 2.37, 920000, 1, 7.3);
+
 COMMIT;
