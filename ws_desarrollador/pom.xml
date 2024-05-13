@@ -39,7 +39,7 @@
     <dependencies>
         <dependency>
             <groupId>es.upsa.dasi</groupId>
-            <artifactId>gateway</artifactId>
+            <artifactId>domain</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
