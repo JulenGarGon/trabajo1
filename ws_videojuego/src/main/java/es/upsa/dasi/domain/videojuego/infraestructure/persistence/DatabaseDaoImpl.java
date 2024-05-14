@@ -13,7 +13,6 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @ApplicationScoped
 public class DatabaseDaoImpl implements DatabaseDao {
@@ -38,7 +37,7 @@ public class DatabaseDaoImpl implements DatabaseDao {
                                             .withId(rs.getInt(1))
                                             .withNombre(rs.getString(2))
                                             .withGenero(rs.getString(3))
-                                            .withEstreno(rs.getDate(4))
+                                            .withEstreno(rs.getDate(4).toLocalDate())
                                             .withPortada(rs.getString(5))
                                             .withDuracion(rs.getFloat(6))
                                             .withTamanio(rs.getFloat(7))
@@ -75,7 +74,7 @@ public class DatabaseDaoImpl implements DatabaseDao {
                             .withId(rs.getInt(1))
                             .withNombre(rs.getString(2))
                             .withGenero(rs.getString(3))
-                            .withEstreno(rs.getDate(4))
+                            .withEstreno(rs.getDate(4).toLocalDate())
                             .withPortada(rs.getString(5))
                             .withDuracion(rs.getFloat(6))
                             .withTamanio(rs.getFloat(7))
@@ -110,6 +109,40 @@ public class DatabaseDaoImpl implements DatabaseDao {
         } catch (SQLException sqlException){
             throw managerSqlExceptions(sqlException);
         }
+    }
+
+    @Override
+    public Videojuego save(Videojuego videojuego) throws AppException {
+        final String SQL =  """
+                INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+                VALUES (nextval('seq_juegos'), ?, ?, ?, ?, ? ,?, ?, ? ,?)
+                            """;
+
+        String[] columns = {"id"};
+        try (Connection connection = dataSource.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SQL, columns)){
+
+            preparedStatement.setString(1,videojuego.nombre());
+            preparedStatement.setString(2,videojuego.genero());
+            preparedStatement.setDate(3, (videojuego.estreno()!=null)? Date.valueOf(videojuego.estreno()) : null);
+            preparedStatement.setString(4,videojuego.portada());
+            preparedStatement.setFloat(5,videojuego.duracion());
+            preparedStatement.setFloat(6,videojuego.tamanio());
+            preparedStatement.setInt(7,videojuego.ventas());
+            preparedStatement.setInt(8,videojuego.desarrollador());
+            preparedStatement.setFloat(9,videojuego.nota());
+
+            preparedStatement.executeUpdate();
+
+            try (ResultSet gk = preparedStatement.getGeneratedKeys()){
+                gk.next();
+                return videojuego.withId(gk.getInt(1));
+            }
+
+        } catch (SQLException sqlException){
+            throw managerSqlExceptions(sqlException);
+        }
+
     }
 
     private AppException managerSqlExceptions(SQLException sqlException) {

@@ -1,10 +1,9 @@
 package es.upsa.dasi.domain.videojuego.application;
 
+
 import es.upsa.dasi.trabajo1.domain.entities.Videojuego;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 
-import java.util.List;
-
-public interface FindVideojuegosByIdDesarrollador {
-    List<Videojuego> execute(int id) throws AppException;
+public interface InsertVideojuegoUseCase {
+    public Videojuego execute(Videojuego videojuego) throws AppException;
 }

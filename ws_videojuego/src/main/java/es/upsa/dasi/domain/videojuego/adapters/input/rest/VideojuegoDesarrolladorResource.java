@@ -1,6 +1,6 @@
 package es.upsa.dasi.domain.videojuego.adapters.input.rest;
 
-import es.upsa.dasi.domain.videojuego.application.FindVideojuegosByIdDesarrollador;
+import es.upsa.dasi.domain.videojuego.application.FindVideojuegosByIdDesarrolladorUseCase;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -16,14 +16,14 @@ import jakarta.ws.rs.core.Response;
 public class VideojuegoDesarrolladorResource {
 
     @Inject
-    FindVideojuegosByIdDesarrollador findVideojuegosByIdDesarrollador;
+    FindVideojuegosByIdDesarrolladorUseCase findVideojuegosByIdDesarrolladorUseCase;
 
     @Path("/{idDesarrollador}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findVideojuegosByIdDesarrollador(@PathParam("idDesarrollador")int id) throws AppException {
         return Response.ok()
-                .entity(findVideojuegosByIdDesarrollador.execute(id))
+                .entity(findVideojuegosByIdDesarrolladorUseCase.execute(id))
                 .build();
     }
 }

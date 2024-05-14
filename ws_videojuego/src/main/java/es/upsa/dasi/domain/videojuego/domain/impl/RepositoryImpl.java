@@ -29,4 +29,9 @@ public class RepositoryImpl implements Repository {
     public void deleteVideojuegoById(int id) throws AppException {
         dao.deleteVideojuegoById(id);
     }
+
+    @Override
+    public Videojuego save(Videojuego videojuego) throws AppException {
+        return dao.save(videojuego);
+    }
 }
