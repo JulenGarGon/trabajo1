@@ -28,8 +28,6 @@ public class VideojuegoDaoImpl implements VideojuegosDao {
     @Inject
     Mappers mappers;
 
-    @Inject
-    FindVideojuegosByIdUseCase findVideojuegosByIdUseCase;
 
     @Override
     public List<Videojuego> findAllVideojuegos() throws AppException {

@@ -1,5 +1,6 @@
 package es.upsa.dasi.trabajoi.gateway.domain;
 
+import es.upsa.dasi.trabajo1.domain.entities.Desarrollador;
 import es.upsa.dasi.trabajo1.domain.entities.Videojuego;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 
@@ -19,4 +20,16 @@ public interface Repository {
     void deleteVideojuegoById(int id) throws AppException;
 
     Videojuego save(Videojuego videojuego) throws AppException;
+
+    //DESARROLLADORES
+
+    List<Desarrollador> findAllDesarrolladores() throws AppException;
+
+    Optional<Desarrollador> findDesarrolladorById(int id) throws AppException;
+
+    Optional<Desarrollador> findDesarrolladorByNombre(String nombre) throws AppException;
+
+    Desarrollador saveDesarrollador (Desarrollador desarrollador) throws AppException;
+
+    void deleteDesarrollador(int id) throws AppException;
 }
