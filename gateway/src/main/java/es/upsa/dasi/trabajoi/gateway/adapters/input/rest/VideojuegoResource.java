@@ -5,6 +5,7 @@ import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 import es.upsa.dasi.trabajoi.gateway.application.dtos.VideojuegoDto;
 import es.upsa.dasi.trabajoi.gateway.application.usecases.videojuegos.DeleteVideojuegoByIdUseCase;
 import es.upsa.dasi.trabajoi.gateway.application.usecases.videojuegos.FindAllVideojuegosUseCase;
+import es.upsa.dasi.trabajoi.gateway.application.usecases.videojuegos.FindVideojuegosByIdUseCase;
 import es.upsa.dasi.trabajoi.gateway.application.usecases.videojuegos.InsertVideojuegoUseCase;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -14,6 +15,7 @@ import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 
 import java.net.URI;
+import java.util.Optional;
 
 @Path("/videojuego")
 public class VideojuegoResource {
@@ -22,6 +24,9 @@ public class VideojuegoResource {
 
     @Inject
     FindAllVideojuegosUseCase findAllVideojuegosUseCase;
+
+    @Inject
+    FindVideojuegosByIdUseCase findVideojuegosByIdUseCase;
 
     @Inject
     DeleteVideojuegoByIdUseCase deleteVideojuegoByIdUseCase;
@@ -35,6 +40,20 @@ public class VideojuegoResource {
         return  Response.ok()
                 .entity(findAllVideojuegosUseCase.execute())
                 .build();
+    }
+
+    @Path("{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findVideojuegoById(@PathParam("id")int id) throws AppException{
+        Optional<Videojuego> optional = findVideojuegosByIdUseCase.execute(id);
+        if (optional.isEmpty()){
+            return Response.status( Response.Status.NOT_FOUND)
+                           .build();
+        }
+        return Response.ok()
+                        .entity(optional.get())
+                        .build();
     }
 
     @Path("{id}")

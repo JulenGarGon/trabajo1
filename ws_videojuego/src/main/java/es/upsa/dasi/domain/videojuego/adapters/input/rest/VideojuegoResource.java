@@ -3,6 +3,7 @@ package es.upsa.dasi.domain.videojuego.adapters.input.rest;
 import es.upsa.dasi.domain.videojuego.adapters.input.rest.dtos.VideojuegoDto;
 import es.upsa.dasi.domain.videojuego.application.DeleteVideojuegoByIdUseCase;
 import es.upsa.dasi.domain.videojuego.application.FindAllVideojuegosUseCase;
+import es.upsa.dasi.domain.videojuego.application.FindVideojuegoByIdUseCase;
 import es.upsa.dasi.domain.videojuego.application.InsertVideojuegoUseCase;
 import es.upsa.dasi.trabajo1.domain.entities.Videojuego;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
@@ -25,6 +26,9 @@ public class VideojuegoResource {
     FindAllVideojuegosUseCase findAllVideojuegosUseCase;
 
     @Inject
+    FindVideojuegoByIdUseCase findVideojuegoByIdUseCase;
+
+    @Inject
     DeleteVideojuegoByIdUseCase deleteVideojuegoByIdUseCase;
 
     @Inject
@@ -35,6 +39,15 @@ public class VideojuegoResource {
     public Response findAllVideojuegos() throws AppException{
         return  Response.ok()
                 .entity(findAllVideojuegosUseCase.execute())
+                .build();
+    }
+
+    @Path("{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response findVideojuegoById(@PathParam("id")int id) throws AppException{
+        return Response.ok()
+                .entity(findVideojuegoByIdUseCase.execute(id))
                 .build();
     }
 

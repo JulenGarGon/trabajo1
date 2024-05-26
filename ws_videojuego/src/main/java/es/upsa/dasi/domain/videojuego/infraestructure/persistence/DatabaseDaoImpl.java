@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class DatabaseDaoImpl implements DatabaseDao {
@@ -90,6 +91,41 @@ public class DatabaseDaoImpl implements DatabaseDao {
             throw  managerSqlExceptions(sqlException);
         }
 
+    }
+
+    @Override
+    public Optional findVideojuegoById(int id) throws AppException {
+        final String SQL =  """
+                            SELECT v.id, v.nombre, v.genero, v.estreno, v.portada, v.duracion, v.tamanio, v.ventas, v.desarrollador, v.nota
+                                FROM videojuego v
+                            WHERE v.id = ?
+                            """;
+
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SQL)
+            ){
+            preparedStatement.setInt(1, id);
+
+            try (ResultSet rs = preparedStatement.executeQuery()){
+                if (!rs.next()) return Optional.empty();
+                return Optional.of( Videojuego.builder()
+                                .withId(rs.getInt(1))
+                                .withNombre(rs.getString(2))
+                                .withGenero(rs.getString(3))
+                                .withEstreno(rs.getDate(4).toLocalDate())
+                                .withPortada(rs.getString(5))
+                                .withDuracion(rs.getFloat(6))
+                                .withTamanio(rs.getFloat(7))
+                                .withVentas(rs.getInt(8))
+                                .withDesarrollador(rs.getInt(9))
+                                .withNota(rs.getInt(10))
+                                .build()
+                        );
+            }
+
+        } catch (SQLException sqlException) {
+            throw managerSqlExceptions(sqlException);
+        }
     }
 
     @Override

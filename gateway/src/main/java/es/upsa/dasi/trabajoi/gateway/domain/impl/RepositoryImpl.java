@@ -8,6 +8,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class RepositoryImpl implements Repository {
@@ -23,6 +24,11 @@ public class RepositoryImpl implements Repository {
     @Override
     public List<Videojuego> findVideojuegosByIdDesarrollador(int id) throws AppException {
         return videojuegosDao.findVideojuegosByIdDesarrollador(id);
+    }
+
+    @Override
+    public Optional findVideojuegoById(int id) throws AppException {
+        return videojuegosDao.findVideojuegoById(id);
     }
 
     @Override

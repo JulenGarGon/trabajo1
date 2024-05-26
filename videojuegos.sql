@@ -78,6 +78,8 @@ VALUES (nextval('seq_desarrollador'), 'From Software', '1986-11-01', 'Naotoshi Z
 INSERT INTO DESARROLLADOR (ID, NOMBRE, FUNDACION, FUNDADOR, EMPLEADOS, SEDE, SITIOWEB, LOGO)
 VALUES (nextval('seq_desarrollador'), 'Electronic Arts', '1982-05-27', 'Trip Hawkins', 12900, 'Redwood City, California', 'https://www.ea.com/es-es', 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Electronic_Arts_2020.svg/250px-Electronic_Arts_2020.svg.png');
 
+INSERT INTO DESARROLLADOR (ID, NOMBRE, FUNDACION, FUNDADOR, EMPLEADOS, SEDE, SITIOWEB, LOGO)
+VALUES (nextval('seq_desarrollador'), 'Level 5', '1998-10-13', 'Akihiro Hino', 280, 'Fukuoka, Japón', 'https://www.level5.co.jp/vision2023/en/', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Level-5_Inc._logo.svg/320px-Level-5_Inc._logo.svg.png');
 
 -- JUEGOS
 
@@ -113,13 +115,13 @@ VALUES (nextval('seq_juegos'), 'Anno 1404', 'Construcción de ciudades', '2009-0
 
 -- 4- Naughty Dog
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
-VALUES (nextval('seq_juegos'), 'The Last of Us Part II', 'Acción-Aventura', '2020-06-19', 'https://images-na.ssl-images-amazon.com/images/I/71u3i5KyGbL._SL1200_.jpg', 30, 78.5, 4000000, 4, 9.4);
+VALUES (nextval('seq_juegos'), 'The Last of Us Part II', 'Acción-Aventura', '2020-06-19', 'https://image.api.playstation.com/vulcan/img/rnd/202010/2618/w48z6bzefZPrRcJHc7L8SO66.png', 30, 78.5, 4000000, 4, 9.4);
 
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
 VALUES (nextval('seq_juegos'), 'Crash Bandicoot', 'Plataformas', '1996-12-04', 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Crash_bandicoot_logo_by_jerimiahisaiah.png/250px-Crash_bandicoot_logo_by_jerimiahisaiah.png', 6, 0.4, 6000000, 4, 9.3);
 
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
-VALUES (nextval('seq_juegos'), 'Jack II', 'Plataformas', '2003-10-14', 'https://static.wikia.nocookie.net/jak-y-daxter/images/0/09/Jak_2.jpg/revision/latest?cb=20130104162139&path-prefix=es', 18, 2.55, 2000000, 4, 8.7);
+VALUES (nextval('seq_juegos'), 'Jack II', 'Plataformas', '2003-10-14', 'https://ih1.redbubble.net/image.2338773486.2909/flat,750x,075,f-pad,750x1000,f8f8f8.jpg', 18, 2.55, 2000000, 4, 8.7);
 
 -- 5- From Software
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
@@ -128,11 +130,27 @@ VALUES (nextval('seq_juegos'), 'Dark Souls I', 'Rol de acción', '2011-09-22', '
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
 VALUES (nextval('seq_juegos'), 'Shekiro: Shadows Die Twice', 'Acción-Aventura', '2019-03-22', 'https://group.kadokawa.co.jp/media/002/202309/mode3_w700-2023092601_img01.jpg', 30, 3.67, 10000000, 5, 8.8);
 
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'Demons souls', 'Rol de acción', '2020-11-12', 'https://image.api.playstation.com/vulcan/img/rnd/202011/1717/GemRaOZaCMhGxQ9dRhnQQyT5.png', 15, 66, 12000000, 5, 9.5);
+
 -- 6- Electronic Arts
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
 VALUES (nextval('seq_juegos'), 'Fifa Street', 'Deportes', '2005-02-22', 'https://upload.wikimedia.org/wikipedia/en/8/8c/FIFA_Street_Coverart.jpg', 10, 5.0, 300000, 6, 6.0);
 
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
 VALUES (nextval('seq_juegos'), 'Los Simpson: el videojuego', 'Acción-Aventura', '2007-10-09', 'https://media.vandal.net/t200/7160/201242892921_1.jpg', 8, 0.65, 5500000, 6, 8.0);
+
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'Dead Space', 'Terror y supervivencia', '2008-10-13', 'https://image.api.playstation.com/vulcan/ap/rnd/202209/1918/MP0I6Folca9wOgs9A39wwvj1.png', 13, 0.256, 2000000, 6, 9.4);
+
+-- 7- Level 5
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'El profesor Layton y la villa misteriosa', 'Puzle', '2007-02-15', 'https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_ds_22/H2x1_NDS_ProfessorLaytonAndTheCuriousVillage_esES_image1600w.jpg', 20, 8, 1650000, 7, 8.8);
+
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'Inazuma Eleven', 'Rol y deportes', '2008-08-22', 'https://m.media-amazon.com/images/I/61aKmSiCVrL._AC_UF894,1000_QL80_.jpg', 18, 5.1, 1180000, 7, 7.8);
+
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'Fantasy Life', 'Rol', '2012-12-27', 'https://m.media-amazon.com/images/I/71G1n0WCXnL.jpg', 31, 6.85, 1200000, 7, 8.5);
 
 COMMIT;

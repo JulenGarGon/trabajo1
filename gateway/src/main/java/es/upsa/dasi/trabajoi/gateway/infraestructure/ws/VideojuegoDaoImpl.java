@@ -7,6 +7,7 @@ import es.upsa.dasi.trabajoi.gateway.adapters.output.daos.VideojuegosDao;
 import es.upsa.dasi.trabajoi.gateway.application.dtos.ErrorDto;
 import es.upsa.dasi.trabajoi.gateway.application.dtos.VideojuegoDto;
 import es.upsa.dasi.trabajoi.gateway.application.mappers.Mappers;
+import es.upsa.dasi.trabajoi.gateway.application.usecases.videojuegos.FindVideojuegosByIdUseCase;
 import es.upsa.dasi.trabajoi.gateway.infraestructure.ws.utils.ResourceUris;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -19,12 +20,16 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
+import java.util.Optional;
 
 @ApplicationScoped
 public class VideojuegoDaoImpl implements VideojuegosDao {
 
     @Inject
     Mappers mappers;
+
+    @Inject
+    FindVideojuegosByIdUseCase findVideojuegosByIdUseCase;
 
     @Override
     public List<Videojuego> findAllVideojuegos() throws AppException {
@@ -62,6 +67,25 @@ public class VideojuegoDaoImpl implements VideojuegosDao {
                 case Response.Status.OK:
                     List<Videojuego> data = response.readEntity( new GenericType<List<Videojuego>>(){});
                     return data;
+                default:
+                    ErrorDto error = response.readEntity(ErrorDto.class);
+                    throw new AppException(error.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public Optional findVideojuegoById(int id) throws AppException {
+        try (Client client = ClientBuilder.newClient()){
+            Response response = client.target(ResourceUris.URI_VIDEOJUEGOS)
+                    .path("/videojuego/{id}")
+                    .resolveTemplate("id", id)
+                    .request(MediaType.APPLICATION_JSON)
+                    .get();
+            switch (response.getStatusInfo()){
+                case Response.Status.OK:
+                    Videojuego data = response.readEntity(Videojuego.class);
+                    return Optional.of(data);
                 default:
                     ErrorDto error = response.readEntity(ErrorDto.class);
                     throw new AppException(error.getMessage());
