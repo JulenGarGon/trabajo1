@@ -30,4 +30,11 @@ public class RepositoryImpl implements Repository {
     public Optional<Desarrollador> findDesarrolladorByNombre(String nombre) throws AppException {
         return dao.findDesarrolladorByNombre(nombre);
     }
+
+    @Override
+    public Desarrollador saveDesarrollador(Desarrollador desarrollador) throws AppException {
+        return dao.saveDesarrollador(desarrollador);
+    }
+
+
 }

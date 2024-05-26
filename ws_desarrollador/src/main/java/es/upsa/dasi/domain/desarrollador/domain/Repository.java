@@ -12,4 +12,6 @@ public interface Repository {
     Optional<Desarrollador> findDesarrolladorById(int id) throws AppException;
 
     Optional<Desarrollador> findDesarrolladorByNombre(String nombre) throws AppException;
+
+    Desarrollador saveDesarrollador (Desarrollador desarrollador) throws AppException;
 }
