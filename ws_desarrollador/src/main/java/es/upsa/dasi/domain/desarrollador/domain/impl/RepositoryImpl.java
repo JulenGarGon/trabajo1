@@ -36,5 +36,10 @@ public class RepositoryImpl implements Repository {
         return dao.saveDesarrollador(desarrollador);
     }
 
+    @Override
+    public void deleteDesarrollador(int id) throws AppException {
+        dao.deleteDesarrolladorById(id);
+    }
+
 
 }

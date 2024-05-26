@@ -3,6 +3,8 @@ package es.upsa.dasi.domain.desarrollador.infraestructure.persistence;
 import es.upsa.dasi.domain.desarrollador.adapters.output.daos.DatabaseDao;
 import es.upsa.dasi.trabajo1.domain.entities.Desarrollador;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
+import es.upsa.dasi.trabajo1.domain.exceptions.ConstraintViolationException;
+import es.upsa.dasi.trabajo1.domain.exceptions.EntityNotFoundException;
 import es.upsa.dasi.trabajo1.domain.exceptions.NonControledSQLException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -149,7 +151,36 @@ public class DatabaseDaoImpl implements DatabaseDao {
         }
     }
 
+    @Override
+    public void deleteDesarrolladorById(int id) throws AppException {
+        final String SQL =  """
+                            DELETE
+                                FROM desarrollador
+                            WHERE id = ?
+                            """;
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement ps = connection.prepareStatement(SQL))
+        {
+            ps.setInt(1, id);
+            int count = ps.executeUpdate();
+            if (count == 0) throw new EntityNotFoundException("No existe un desarrollador con identificador " +id);
+        } catch (SQLException sqlException){
+            throw managerSqlExceptions(sqlException);
+        }
+    }
+
     private AppException managerSqlExceptions(SQLException sqlException) {
+        String message = sqlException.getMessage();
+
+        if (message.contains("NN_DESARROLLADOR.NOMBRE")) return new ConstraintViolationException("El desarrollador debe tener un nombre.");
+        else if (message.contains("NN_DESARROLLADOR.FUNDACION")) return new ConstraintViolationException("El desarrollador debe tener una fecha de fundación.");
+        else if (message.contains("NN_DESARROLLADOR.FUNDADOR")) return new ConstraintViolationException("El desarrollador debe tener un fundador.");
+        else if (message.contains("NN_DESARROLLADOR.EMPLEADOS")) return new ConstraintViolationException("El desarrollador debe tener empleados.");
+        else if (message.contains("NN_DESARROLLADOR.SEDE")) return new ConstraintViolationException("El desarrollador debe tener una sede.");
+        else if (message.contains("NN_DESARROLLADOR.SITIOWEB")) return new ConstraintViolationException("El desarrollador debe tener un sitioweb.");
+        else if (message.contains("NN_DESARROLLADOR.LOGO")) return new ConstraintViolationException("El desarrollador debe tener un logo.");
+
         return new NonControledSQLException(sqlException);
     }
 }

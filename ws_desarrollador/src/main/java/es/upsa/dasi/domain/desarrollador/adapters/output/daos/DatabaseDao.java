@@ -14,4 +14,6 @@ public interface DatabaseDao {
     Optional<Desarrollador> findDesarrolladorByNombre(String nombre) throws AppException;
 
     Desarrollador saveDesarrollador(Desarrollador desarrollador) throws AppException;
+
+    void deleteDesarrolladorById(int id) throws AppException;
 }

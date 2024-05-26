@@ -1,10 +1,7 @@
 package es.upsa.dasi.domain.desarrollador.adapters.input.rest;
 
 import es.upsa.dasi.domain.desarrollador.adapters.input.rest.dtos.DesarrolladorDto;
-import es.upsa.dasi.domain.desarrollador.application.FindAllDesarrolladoresUseCase;
-import es.upsa.dasi.domain.desarrollador.application.FindDesarrolladorByIdUseCase;
-import es.upsa.dasi.domain.desarrollador.application.FindDesarrolladorByNombreUseCase;
-import es.upsa.dasi.domain.desarrollador.application.InsertDesarrolladorUseCase;
+import es.upsa.dasi.domain.desarrollador.application.*;
 import es.upsa.dasi.trabajo1.domain.entities.Desarrollador;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 import jakarta.inject.Inject;
@@ -33,6 +30,9 @@ public class DesarrolladorResource {
 
     @Inject
     InsertDesarrolladorUseCase insertDesarrolladorUseCase;
+
+    @Inject
+    DeleteDesarrolladorByIdUseCase deleteDesarrolladorByIdUseCase;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -98,4 +98,12 @@ public class DesarrolladorResource {
                                 .entity(newDesarrollador)
                                 .build();
     }
+
+    @Path("{id}")
+    @DELETE
+    public Response deleteDesarrolladorById(@PathParam("id")int id) throws AppException{
+        deleteDesarrolladorByIdUseCase.execute(id);
+        return Response.noContent().build();
+    }
+
 }
