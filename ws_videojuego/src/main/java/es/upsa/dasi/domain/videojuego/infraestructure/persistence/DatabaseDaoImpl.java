@@ -208,10 +208,12 @@ public class DatabaseDaoImpl implements DatabaseDao {
             ps.setInt(7, videojuego.ventas());
             ps.setInt(8, videojuego.desarrollador());
             ps.setFloat(9, videojuego.nota());
+            ps.setInt(10, videojuego.id());
 
             int count = ps.executeUpdate();
             if (count == 0) throw new EntityNotFoundException("No existe el videojuego con el identificador "+ videojuego.id());
             return videojuego;
+            
         } catch (SQLException sqlException){
             throw managerSqlExceptions(sqlException);
         }

@@ -6,7 +6,7 @@ import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 import java.util.List;
 import java.util.Optional;
 
-public interface VideojuegosDao {
+public interface VideojuegoDao {
     public List<Videojuego> findAllVideojuegos() throws AppException;
 
     List<Videojuego> findVideojuegosByIdDesarrollador(int id) throws AppException;
@@ -16,4 +16,6 @@ public interface VideojuegosDao {
     void deleteVideojuegoById(int id) throws AppException;
 
     Videojuego save(Videojuego videojuego) throws AppException;
+
+    Videojuego updateVideojuego(Videojuego videojuego) throws AppException;
 }

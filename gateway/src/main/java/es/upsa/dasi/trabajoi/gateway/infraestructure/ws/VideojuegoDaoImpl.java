@@ -3,11 +3,10 @@ package es.upsa.dasi.trabajoi.gateway.infraestructure.ws;
 import es.upsa.dasi.trabajo1.domain.entities.Videojuego;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 import es.upsa.dasi.trabajo1.domain.exceptions.EntityNotFoundException;
-import es.upsa.dasi.trabajoi.gateway.adapters.output.daos.VideojuegosDao;
+import es.upsa.dasi.trabajoi.gateway.adapters.output.daos.VideojuegoDao;
 import es.upsa.dasi.trabajoi.gateway.application.dtos.ErrorDto;
 import es.upsa.dasi.trabajoi.gateway.application.dtos.VideojuegoDto;
 import es.upsa.dasi.trabajoi.gateway.application.mappers.Mappers;
-import es.upsa.dasi.trabajoi.gateway.application.usecases.videojuegos.FindVideojuegosByIdUseCase;
 import es.upsa.dasi.trabajoi.gateway.infraestructure.ws.utils.ResourceUris;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -23,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @ApplicationScoped
-public class VideojuegoDaoImpl implements VideojuegosDao {
+public class VideojuegoDaoImpl implements VideojuegoDao {
 
     @Inject
     Mappers mappers;
@@ -130,6 +129,32 @@ public class VideojuegoDaoImpl implements VideojuegosDao {
                     Videojuego data = response.readEntity(Videojuego.class);
                     String location = response.getHeaderString(HttpHeaders.LOCATION);
                     return data;
+                default:
+                    ErrorDto error = response.readEntity(ErrorDto.class);
+                    throw new AppException(error.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public Videojuego updateVideojuego(Videojuego videojuego) throws AppException {
+        VideojuegoDto videojuegoDto = mappers.mapToVideojuegoDto.apply(videojuego);
+        try (Client client = ClientBuilder.newClient()){
+            Response response = client.target(ResourceUris.URI_VIDEOJUEGOS)
+                    .path("/videojuego/{id}")
+                    .resolveTemplate("id", videojuego.id())
+                    .request(MediaType.APPLICATION_JSON)
+                    .put(Entity.json(videojuegoDto));
+
+            switch (response.getStatusInfo()){
+                case Response.Status.OK:
+                    Videojuego data = response.readEntity(Videojuego.class);
+                    return data;
+
+                case Response.Status.NOT_FOUND:
+                    ErrorDto errorNotFound = response.readEntity(ErrorDto.class);
+                    throw new EntityNotFoundException(errorNotFound.getMessage());
+
                 default:
                     ErrorDto error = response.readEntity(ErrorDto.class);
                     throw new AppException(error.getMessage());

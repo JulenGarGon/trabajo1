@@ -4,7 +4,7 @@ import es.upsa.dasi.trabajo1.domain.entities.Desarrollador;
 import es.upsa.dasi.trabajo1.domain.entities.Videojuego;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 import es.upsa.dasi.trabajoi.gateway.adapters.output.daos.DesarrolladorDao;
-import es.upsa.dasi.trabajoi.gateway.adapters.output.daos.VideojuegosDao;
+import es.upsa.dasi.trabajoi.gateway.adapters.output.daos.VideojuegoDao;
 import es.upsa.dasi.trabajoi.gateway.domain.Repository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -16,35 +16,40 @@ import java.util.Optional;
 public class RepositoryImpl implements Repository {
 
     @Inject
-    VideojuegosDao videojuegosDao;
+    VideojuegoDao videojuegoDao;
 
     @Inject
     DesarrolladorDao desarrolladorDao;
 
+    //VIDEOJUEGOS
+
     @Override
     public List<Videojuego> findAllVideojuegos() throws AppException {
-        return videojuegosDao.findAllVideojuegos();
+        return videojuegoDao.findAllVideojuegos();
     }
 
     @Override
     public List<Videojuego> findVideojuegosByIdDesarrollador(int id) throws AppException {
-        return videojuegosDao.findVideojuegosByIdDesarrollador(id);
+        return videojuegoDao.findVideojuegosByIdDesarrollador(id);
     }
 
     @Override
     public Optional findVideojuegoById(int id) throws AppException {
-        return videojuegosDao.findVideojuegoById(id);
+        return videojuegoDao.findVideojuegoById(id);
     }
 
     @Override
     public void deleteVideojuegoById(int id) throws AppException {
-        videojuegosDao.deleteVideojuegoById(id);
+        videojuegoDao.deleteVideojuegoById(id);
     }
 
     @Override
     public Videojuego save(Videojuego videojuego) throws AppException {
-        return videojuegosDao.save(videojuego);
+        if (videojuego.id() == 0)   return videojuegoDao.save(videojuego);
+        else                        return videojuegoDao.updateVideojuego(videojuego);
     }
+
+    //DESARROLLADORES
 
     @Override
     public List<Desarrollador> findAllDesarrolladores() throws AppException {

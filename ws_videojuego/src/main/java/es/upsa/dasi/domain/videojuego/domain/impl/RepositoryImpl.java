@@ -38,6 +38,7 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public Videojuego save(Videojuego videojuego) throws AppException {
-        return dao.save(videojuego);
+        if (videojuego.id() == 0)    return dao.save(videojuego);
+        else                            return dao.updateVideojuego(videojuego);
     }
 }

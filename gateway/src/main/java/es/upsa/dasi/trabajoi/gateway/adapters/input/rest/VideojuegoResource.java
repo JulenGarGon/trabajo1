@@ -3,10 +3,8 @@ package es.upsa.dasi.trabajoi.gateway.adapters.input.rest;
 import es.upsa.dasi.trabajo1.domain.entities.Videojuego;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 import es.upsa.dasi.trabajoi.gateway.application.dtos.VideojuegoDto;
-import es.upsa.dasi.trabajoi.gateway.application.usecases.videojuegos.DeleteVideojuegoByIdUseCase;
-import es.upsa.dasi.trabajoi.gateway.application.usecases.videojuegos.FindAllVideojuegosUseCase;
-import es.upsa.dasi.trabajoi.gateway.application.usecases.videojuegos.FindVideojuegosByIdUseCase;
-import es.upsa.dasi.trabajoi.gateway.application.usecases.videojuegos.InsertVideojuegoUseCase;
+import es.upsa.dasi.trabajoi.gateway.application.mappers.Mappers;
+import es.upsa.dasi.trabajoi.gateway.application.usecases.videojuegos.*;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Context;
@@ -19,6 +17,10 @@ import java.util.Optional;
 
 @Path("/videojuego")
 public class VideojuegoResource {
+
+    @Inject
+    Mappers mappers;
+
     @Context
     UriInfo uriInfo;
 
@@ -33,6 +35,9 @@ public class VideojuegoResource {
 
     @Inject
     InsertVideojuegoUseCase insertVideojuegoUseCase;
+
+    @Inject
+    UpdateVideojuegosByIdUseCase updateVideojuegosByIdUseCase;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -68,18 +73,7 @@ public class VideojuegoResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addVideojuego(VideojuegoDto videojuegoDto) throws AppException{
-        Videojuego videojuego = Videojuego.builder()
-                .withId(videojuegoDto.getId())
-                .withNombre(videojuegoDto.getNombre())
-                .withGenero(videojuegoDto.getGenero())
-                .withEstreno(videojuegoDto.getEstreno())
-                .withPortada(videojuegoDto.getPortada())
-                .withDuracion(videojuegoDto.getDuracion())
-                .withTamanio(videojuegoDto.getTamanio())
-                .withVentas(videojuegoDto.getVentas())
-                .withDesarrollador(videojuegoDto.getDesarrollador())
-                .withNota(videojuegoDto.getNota())
-                .build();
+        Videojuego videojuego = mappers.mapToVideojuego.apply(videojuegoDto);
 
         Videojuego newVideojuego = insertVideojuegoUseCase.execute(videojuego);
         URI newVideojuegoURI = uriInfo.getAbsolutePathBuilder()
@@ -92,4 +86,16 @@ public class VideojuegoResource {
                 .build();
     }
 
+    @Path("{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateVideojuego(@PathParam("id")int id, VideojuegoDto videojuegoDto) throws AppException{
+        Videojuego videojuego = mappers.toVideojuego.apply(id, videojuegoDto);
+        Videojuego updatedVideojuego = updateVideojuegosByIdUseCase.execute(videojuego);
+
+        return Response.ok()
+                        .entity(updatedVideojuego)
+                        .build();
+    }
 }
