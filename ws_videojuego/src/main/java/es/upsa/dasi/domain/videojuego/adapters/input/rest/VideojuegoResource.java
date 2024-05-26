@@ -1,10 +1,7 @@
 package es.upsa.dasi.domain.videojuego.adapters.input.rest;
 
 import es.upsa.dasi.domain.videojuego.adapters.input.rest.dtos.VideojuegoDto;
-import es.upsa.dasi.domain.videojuego.application.DeleteVideojuegoByIdUseCase;
-import es.upsa.dasi.domain.videojuego.application.FindAllVideojuegosUseCase;
-import es.upsa.dasi.domain.videojuego.application.FindVideojuegoByIdUseCase;
-import es.upsa.dasi.domain.videojuego.application.InsertVideojuegoUseCase;
+import es.upsa.dasi.domain.videojuego.application.*;
 import es.upsa.dasi.trabajo1.domain.entities.Videojuego;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 import jakarta.inject.Inject;
@@ -33,6 +30,9 @@ public class VideojuegoResource {
 
     @Inject
     InsertVideojuegoUseCase insertVideojuegoUseCase;
+
+    @Inject
+    UpdateVideojuegosByIdUseCase updateVideojuegosByIdUseCase;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -87,4 +87,28 @@ public class VideojuegoResource {
                 .build();
     }
 
+
+    @Path("{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateVideojuego(@PathParam("id")int id, VideojuegoDto videojuegoDto) throws AppException{
+        Videojuego videojuego = Videojuego.builder()
+                                            .withId(id)
+                                            .withNombre(videojuegoDto.getNombre())
+                                            .withGenero(videojuegoDto.getGenero())
+                                            .withEstreno(videojuegoDto.getEstreno())
+                                            .withPortada(videojuegoDto.getPortada())
+                                            .withDuracion(videojuegoDto.getDuracion())
+                                            .withTamanio(videojuegoDto.getTamanio())
+                                            .withVentas(videojuegoDto.getVentas())
+                                            .withDesarrollador(videojuegoDto.getDesarrollador())
+                                            .withNota(videojuegoDto.getNota())
+                                            .build();
+        Videojuego updatedVideojuego = updateVideojuegosByIdUseCase.execute(videojuego);
+
+        return Response.ok()
+                .entity(updatedVideojuego)
+                .build();
+    }
 }

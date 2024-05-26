@@ -1,6 +1,5 @@
 package es.upsa.dasi.domain.videojuego.domain;
 
-import es.upsa.dasi.domain.videojuego.adapters.input.rest.dtos.VideojuegoDto;
 import es.upsa.dasi.trabajo1.domain.entities.Videojuego;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
 

@@ -181,6 +181,43 @@ public class DatabaseDaoImpl implements DatabaseDao {
 
     }
 
+    @Override
+    public Videojuego updateVideojuego(Videojuego videojuego) throws AppException {
+        final String SQL =  """
+                            UPDATE videojuego
+                                SET nombre = ?,
+                                    genero = ?,
+                                    estreno = ?,
+                                    portada = ?,
+                                    duracion = ?,
+                                    tamanio = ?,
+                                    ventas = ?,
+                                    desarrollador = ?,
+                                    nota = ?
+                            WHERE id = ?
+                            """;
+
+        try (Connection connection = dataSource.getConnection();
+        PreparedStatement ps = connection.prepareStatement(SQL)){
+            ps.setString(1, videojuego.nombre());
+            ps.setString(2, videojuego.genero());
+            ps.setDate(3, Date.valueOf(videojuego.estreno()));
+            ps.setString(4, videojuego.portada());
+            ps.setFloat(5, videojuego.duracion());
+            ps.setFloat(6, videojuego.tamanio());
+            ps.setInt(7, videojuego.ventas());
+            ps.setInt(8, videojuego.desarrollador());
+            ps.setFloat(9, videojuego.nota());
+
+            int count = ps.executeUpdate();
+            if (count == 0) throw new EntityNotFoundException("No existe el videojuego con el identificador "+ videojuego.id());
+            return videojuego;
+        } catch (SQLException sqlException){
+            throw managerSqlExceptions(sqlException);
+        }
+    }
+
+
     private AppException managerSqlExceptions(SQLException sqlException) {
 
         String message = sqlException.getMessage();

@@ -17,4 +17,6 @@ public interface DatabaseDao {
     void deleteVideojuegoById(int id) throws AppException;
 
     Videojuego save(Videojuego videojuego) throws AppException;
+
+    Videojuego updateVideojuego(Videojuego videojuego) throws AppException;
 }
