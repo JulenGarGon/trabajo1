@@ -34,6 +34,9 @@ public class DesarrolladorResource {
     @Inject
     DeleteDesarrolladorByIdUseCase deleteDesarrolladorByIdUseCase;
 
+    @Inject
+    UpdateDesarrolladorByIdUseCase updateDesarrolladorByIdUseCase;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response findAllDesarrolladores() throws AppException {
@@ -106,4 +109,26 @@ public class DesarrolladorResource {
         return Response.noContent().build();
     }
 
+
+    @Path("{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateDesarrollador(@PathParam("id")int id, DesarrolladorDto desarrolladorDto) throws AppException{
+        Desarrollador desarrollador = Desarrollador.builder()
+                .withId(id)
+                .withNombre(desarrolladorDto.getNombre())
+                .withFundacion(desarrolladorDto.getFundacion())
+                .withFundador(desarrolladorDto.getFundador())
+                .withEmpleados(desarrolladorDto.getEmpleados())
+                .withSede(desarrolladorDto.getSede())
+                .withSitioWeb(desarrolladorDto.getSitioWeb())
+                .withLogo(desarrolladorDto.getLogo())
+                .build();
+        Desarrollador updatedDesarrollador = updateDesarrolladorByIdUseCase.execute(desarrollador);
+
+        return Response.ok()
+                .entity(updatedDesarrollador)
+                .build();
+    }
 }

@@ -122,7 +122,7 @@ public class DatabaseDaoImpl implements DatabaseDao {
     }
 
     @Override
-    public Desarrollador saveDesarrollador(Desarrollador desarrollador) throws AppException {
+    public Desarrollador insertDesarrollador(Desarrollador desarrollador) throws AppException {
         final String SQL =  """
                             INSERT INTO DESARROLLADOR (ID, NOMBRE, FUNDACION, FUNDADOR, EMPLEADOS, SEDE, SITIOWEB, LOGO)
                             VALUES (nextval('seq_desarrollador'), ?, ?,         ?,      ?,          ?,      ?,      ?);
@@ -165,6 +165,41 @@ public class DatabaseDaoImpl implements DatabaseDao {
             ps.setInt(1, id);
             int count = ps.executeUpdate();
             if (count == 0) throw new EntityNotFoundException("No existe un desarrollador con identificador " +id);
+        } catch (SQLException sqlException){
+            throw managerSqlExceptions(sqlException);
+        }
+    }
+
+    @Override
+    public Desarrollador updateDesarrollador(Desarrollador desarrollador) throws AppException {
+        final String SQL =  """
+                            UPDATE desarrollador
+                                SET nombre = ?,
+                                fundacion = ?,
+                                fundador = ?,
+                                empleados = ?,
+                                sede = ?,
+                                sitioWeb = ?,
+                                logo = ?
+                            WHERE id = ?
+                            """;
+
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement ps = connection.prepareStatement(SQL))
+        {
+            ps.setString(1, desarrollador.nombre());
+            ps.setDate(2, Date.valueOf(desarrollador.fundacion()));
+            ps.setString(3, desarrollador.fundador());
+            ps.setInt(4, desarrollador.empleados());
+            ps.setString(5, desarrollador.sede());
+            ps.setString(6, desarrollador.sitioWeb());
+            ps.setString(7, desarrollador.logo());
+            ps.setInt(8, desarrollador.id());
+
+            int count = ps.executeUpdate();
+
+            if (count == 0) throw new EntityNotFoundException("No existe el desarrollador con el identificador " + desarrollador.id());
+            return desarrollador;
         } catch (SQLException sqlException){
             throw managerSqlExceptions(sqlException);
         }
