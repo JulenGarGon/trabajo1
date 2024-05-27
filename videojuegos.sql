@@ -81,6 +81,9 @@ VALUES (nextval('seq_desarrollador'), 'Electronic Arts', '1982-05-27', 'Trip Haw
 INSERT INTO DESARROLLADOR (ID, NOMBRE, FUNDACION, FUNDADOR, EMPLEADOS, SEDE, SITIOWEB, LOGO)
 VALUES (nextval('seq_desarrollador'), 'Level 5', '1998-10-13', 'Akihiro Hino', 280, 'Fukuoka, Japón', 'https://www.level5.co.jp/vision2023/en/', 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Level-5_Inc._logo.svg/320px-Level-5_Inc._logo.svg.png');
 
+INSERT INTO DESARROLLADOR (ID, NOMBRE, FUNDACION, FUNDADOR, EMPLEADOS, SEDE, SITIOWEB, LOGO)
+VALUES (nextval('seq_desarrollador'), 'Bethesda Game Studios', '2001-03-24', 'Todd Howard', 400, 'Rockville, Maryland', 'https://bethesda.net/es/dashboard', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Bethesda_Game_Studios_logo.svg/1200px-Bethesda_Game_Studios_logo.svg.png');
+
 -- JUEGOS
 
 -- 1- Rockstar
@@ -152,5 +155,15 @@ VALUES (nextval('seq_juegos'), 'Inazuma Eleven', 'Rol y deportes', '2008-08-22',
 
 INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
 VALUES (nextval('seq_juegos'), 'Fantasy Life', 'Rol', '2012-12-27', 'https://m.media-amazon.com/images/I/71G1n0WCXnL.jpg', 31, 6.85, 1200000, 7, 8.5);
+
+-- 8- Bethesda
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'Fallout 4', 'Rol de acción', '2015-11-10', 'https://image.api.playstation.com/vulcan/ap/rnd/202009/2500/4GZyUQ1bHTjICP6GCRG7f65n.png', 30, 35, 12000000, 8, 9.2);
+
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'The Elder Scrolls V: Skyrim', 'ARPG', '2011-11-11', 'https://image.api.playstation.com/vulcan/ap/rnd/202110/2019/aDSOgerXg4V6sf5A7VzHiTun.jpg', 40, 14.3, 60000000, 8, 9.6);
+
+INSERT INTO VIDEOJUEGO (ID, NOMBRE, GENERO, ESTRENO, PORTADA, DURACION, TAMANIO, VENTAS, DESARROLLADOR, NOTA)
+VALUES (nextval('seq_juegos'), 'Starfield', 'Rol', '2023-09-06', 'https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1716740/capsule_616x353.jpg?t=1704299959', 40, 125, 13000000, 8, 8.3);
 
 COMMIT;
