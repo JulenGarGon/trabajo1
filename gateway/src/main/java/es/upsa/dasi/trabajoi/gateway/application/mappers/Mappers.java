@@ -60,4 +60,17 @@ public class Mappers {
                                                                                                                 .build();
 
 
+
+    public BiFunction<Integer, DesarrolladorDto, Desarrollador> toDesarrollador = (idDesarrollador, desarrolladorDto) -> Desarrollador.builder()
+                                                                                                                .withId(idDesarrollador)
+                                                                                                                .withNombre(desarrolladorDto.getNombre())
+                                                                                                                .withFundacion(desarrolladorDto.getFundacion())
+                                                                                                                .withFundador(desarrolladorDto.getFundador())
+                                                                                                                .withEmpleados(desarrolladorDto.getEmpleados())
+                                                                                                                .withSede(desarrolladorDto.getSede())
+                                                                                                                .withSitioWeb(desarrolladorDto.getSitioWeb())
+                                                                                                                .withLogo(desarrolladorDto.getLogo())
+                                                                                                                .build();
+
+
 }

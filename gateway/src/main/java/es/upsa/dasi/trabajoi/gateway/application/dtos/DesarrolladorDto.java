@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder(setterPrefix = "with")
 public class DesarrolladorDto {
-
     private int id;
     private String nombre;
     private LocalDate fundacion;

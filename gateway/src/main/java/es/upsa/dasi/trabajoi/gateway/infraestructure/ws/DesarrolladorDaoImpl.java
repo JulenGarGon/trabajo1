@@ -128,4 +128,30 @@ public class DesarrolladorDaoImpl implements DesarrolladorDao {
             }
         }
     }
+
+    @Override
+    public Desarrollador updateDesarrollador(Desarrollador desarrollador) throws AppException {
+        DesarrolladorDto desarrolladorDto = mappers.mapToDesarrolladorDto.apply(desarrollador);
+        try (Client client = ClientBuilder.newClient()){
+            Response response = client.target(ResourceUris.URI_DESARROLLADORES)
+                    .path("/desarrollador/{id}")
+                    .resolveTemplate("id", desarrollador.id())
+                    .request(MediaType.APPLICATION_JSON)
+                    .put(Entity.json(desarrolladorDto));
+
+            switch (response.getStatusInfo()){
+                case Response.Status.OK:
+                    Desarrollador data = response.readEntity(Desarrollador.class);
+                    return data;
+                case Response.Status.NOT_FOUND:
+                    ErrorDto errorNotFound = response.readEntity(ErrorDto.class);
+                    throw new EntityNotFoundException(errorNotFound.getMessage());
+                default:
+                    ErrorDto error = response.readEntity(ErrorDto.class);
+                    throw new AppException(error.getMessage());
+            }
+        }
+    }
+
+
 }

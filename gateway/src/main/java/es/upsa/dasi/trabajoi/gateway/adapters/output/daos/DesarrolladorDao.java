@@ -17,4 +17,6 @@ public interface DesarrolladorDao {
     Desarrollador saveDesarrollador(Desarrollador desarrollador) throws AppException;
 
     void deleteDesarrolladorById(int id) throws AppException;
+
+    Desarrollador updateDesarrollador(Desarrollador desarrollador) throws AppException;
 }

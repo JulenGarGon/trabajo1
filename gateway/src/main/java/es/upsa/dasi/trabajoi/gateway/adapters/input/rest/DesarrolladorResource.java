@@ -1,8 +1,10 @@
 package es.upsa.dasi.trabajoi.gateway.adapters.input.rest;
 
-import es.upsa.dasi.domain.desarrollador.adapters.input.rest.dtos.DesarrolladorDto;
+
 import es.upsa.dasi.trabajo1.domain.entities.Desarrollador;
 import es.upsa.dasi.trabajo1.domain.exceptions.AppException;
+import es.upsa.dasi.trabajoi.gateway.application.dtos.DesarrolladorDto;
+import es.upsa.dasi.trabajoi.gateway.application.mappers.Mappers;
 import es.upsa.dasi.trabajoi.gateway.application.usecases.desarrolladores.*;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -20,6 +22,9 @@ public class DesarrolladorResource {
     UriInfo uriInfo;
 
     @Inject
+    Mappers mappers;
+
+    @Inject
     FindAllDesarrolladoresUseCase findAllDesarrolladoresUseCase;
 
     @Inject
@@ -33,6 +38,9 @@ public class DesarrolladorResource {
 
     @Inject
     DeleteDesarrolladorByIdUseCase deleteDesarrolladorByIdUseCase;
+
+    @Inject
+    UpdateDesarrolladorByIdUseCase updateDesarrolladorByIdUseCase;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -104,6 +112,19 @@ public class DesarrolladorResource {
     public Response deleteDesarrolladorById(@PathParam("id")int id) throws AppException{
         deleteDesarrolladorByIdUseCase.execute(id);
         return Response.noContent().build();
+    }
+
+    @Path("{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateDesarrollador(@PathParam("id")int id, DesarrolladorDto desarrolladorDto) throws AppException{
+        Desarrollador desarrollador = mappers.toDesarrollador.apply(id, desarrolladorDto);
+        Desarrollador updatedDesarrollador = updateDesarrolladorByIdUseCase.execute(desarrollador);
+
+        return Response.ok()
+                .entity(updatedDesarrollador)
+                .build();
     }
 
 }

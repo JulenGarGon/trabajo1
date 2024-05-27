@@ -69,7 +69,8 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public Desarrollador saveDesarrollador(Desarrollador desarrollador) throws AppException {
-        return desarrolladorDao.saveDesarrollador(desarrollador);
+        if (desarrollador.id() == 0)    return desarrolladorDao.saveDesarrollador(desarrollador);
+        else                            return desarrolladorDao.updateDesarrollador(desarrollador);
     }
 
     @Override
