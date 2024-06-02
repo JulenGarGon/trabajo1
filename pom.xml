@@ -12,6 +12,8 @@
     <modules>
         <module>domain</module>
         <module>ws_desarrollador</module>
+        <module>ws_videojuego</module>
+        <module>gateway</module>
     </modules>
 
     <properties>
